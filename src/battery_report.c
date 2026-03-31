@@ -1,4 +1,4 @@
-
+/*
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
@@ -10,9 +10,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "battery_report.h"
 
-/* =========================
-* Shared state
-* ========================= */
+
 
 uint8_t zmk_central_battery = 0;
 uint16_t zmk_central_voltage = 0;
@@ -20,18 +18,14 @@ uint16_t zmk_central_voltage = 0;
 uint8_t zmk_peripheral_battery = 0;
 uint16_t zmk_peripheral_voltage = 0;
 
-/* =========================
-* Sync (central only)
-* ========================= */
+
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 K_SEM_DEFINE(bat_sem, 0, 1);
 bool peripheral_connected = false;
 #endif
 
-/* =========================
-* Battery event (local)
-* ========================= */
+
 
 static int battery_listener(const zmk_event_t *eh) {
 const struct zmk_battery_state_changed *ev =
@@ -48,9 +42,6 @@ return 0;
 ZMK_LISTENER(battery_report_listener, battery_listener);
 ZMK_SUBSCRIPTION(battery_report_listener, zmk_battery_state_changed);
 
-/* =========================
-* Split messaging
-* ========================= */
 
 enum bat_cmd {
 BAT_REQ = 1,
@@ -106,9 +97,6 @@ k_sem_give(&bat_sem);
 
 ZMK_SPLIT_BLE_SERVICE_REGISTER(battery_service, bat_received);
 
-/* =========================
-* Request API (central)
-* ========================= */
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
@@ -123,3 +111,4 @@ LOG_INF("Sending BAT_REQ");
 
 zmk_split_bt_service_send(&req, sizeof(req));
 }
+*/
