@@ -1,4 +1,4 @@
-config ZMK_BATTERY_REPORT
+config ZMK_FEATURE_SPLITBATTERY_REPORT
     bool "Battery report behavior (split, on-demand)"
     default y
 
