@@ -1,0 +1,9 @@
+
+/ {
+behaviors {
+bat_report: bat_report {
+compatible = "zmk,behavior";
+label = "BAT_REPORT";
+};
+};
+};
