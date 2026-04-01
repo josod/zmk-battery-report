@@ -1,50 +1,16 @@
 name: Check for new ZMK releases
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 22 * * *" # Run daily at 22:00 UTC
+    workflow_dispatch:
+    schedule:
+        - cron: "0 22 * * *" # Run daily at 22:00 UTC
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  upgrade-zmk:
-    uses: urob/zmk-actions/.github/workflows/upgrade-zmk.yml@be8441abe83c2fe48c6f9f26d664845e93172fa4 # v9.1.1
-    secrets:
-      # Name of PAT with write access to pull requests
-      token: ${{ secrets.ZMK_ACTIONS_TOKEN }}
-```
-
-Good, the workflow file is clean again. Now here's how to create the fine-grained PAT correctly:
-
----
-
-**1. Create the token**
-
-Go to: **GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**
-
-| Field | Value |
-|---|---|
-| **Token name** | e.g. `zmk-battery-report-actions` |
-| **Expiration** | Your preference (e.g. 1 year) |
-| **Resource owner** | Your GitHub username |
-| **Repository access** | Only select repositories → `zmk-battery-report` |
-
-**2. Set Repository permissions**
-
-| Permission | Access |
-|---|---|
-| **Metadata** | Read-only *(auto-set, mandatory)* |
-| **Pull requests** | Read and write |
-| **Contents** | Read and write *(needed to push the PR branch)* |
-
-**3. Save it**
-
-Click **Generate token**, copy it immediately, then go to your repo:
-
-**Settings → Secrets and variables → Actions → `ZMK_ACTIONS_TOKEN` → Update secret** → paste → **Save**
-
----
-
-The 401 `Bad credentials` error means the token stored in `ZMK_ACTIONS_TOKEN` was either missing the **Pull requests** permission, or **Contents** permission scoped to that repo. A fresh fine-grained token with those three permissions above will fix it.
+    upgrade-zmk:
+        uses: urob/zmk-actions/.github/workflows/upgrade-zmk.yml@be8441abe83c2fe48c6f9f26d664845e93172fa4 # v9.1.1
+        secrets:
+            # Name of PAT with write access to pull requests
+            token: ${{ secrets.ZMK_ACTIONS_TOKEN }}
